@@ -124,6 +124,27 @@ No se agregó nada más. El rate-limit se implementa con una tabla en Postgres (
 - Sin librerías pesadas en el cliente; fuentes del sistema; sin imágenes.
 - La disponibilidad consulta por veterinario de forma secuencial (≤ 3 veterinarios → unas 12 consultas); suficiente para la escala de una clínica. *Ceiling conocido: si hubiera muchos veterinarios, paralelizar con `Promise.all`.*
 
+## Sitio público
+
+La portada (`/`) incluye cabecera con logo y navegación, hero, sección de servicios (leídos de la BD), sección de veterinarios (leídos de la BD), galería con marcadores de posición, "cómo funciona" en 3 pasos y sección de contacto. Se añadieron `/contacto`, `/aviso-de-privacidad` y `/terminos`, con cabecera/pie compartidos (route group `(public)`) y botón "Regresar" reutilizable (`components/back-link.tsx`).
+
+### Imágenes
+
+No existe carpeta `public/`. Se crearon ilustraciones SVG propias (logo de huella, iconos por servicio, ilustraciones de mascotas) y marcadores de posición. Las fotos reales se colocan en `public/images/` con estos nombres y aparecen sin tocar código:
+
+| Archivo | Contenido | Tamaño recomendado |
+|---|---|---|
+| `clinica-recepcion.jpg` | Recepción | 1200×900 |
+| `clinica-consultorio.jpg` | Consultorio | 1200×900 |
+| `mascota-perro.jpg` | Paciente perro | 1200×900 |
+| `mascota-gato.jpg` | Paciente gato | 1200×900 |
+| `mascota-conejo.jpg` | Paciente conejo | 1200×900 |
+| `equipo-veterinario.jpg` | Equipo | 1200×900 |
+
+## Nota legal
+
+El aviso de privacidad (`/aviso-de-privacidad`) y los términos de uso (`/terminos`) son **textos de ejemplo** redactados para un proyecto de portafolio. **Deben ser revisados por un abogado antes de usarse con un cliente real.**
+
 ## Checks corridos
 
 | Check | Comando | Resultado |
@@ -137,7 +158,7 @@ Pruebas (`tests/`): disponibilidad (8: sin horario, descanso, bloqueo de día, b
 
 ## Pendientes / limitaciones conocidas
 
-1. **No verificado contra una base real**: no hay Supabase/Postgres local en este entorno, así que no se ejecutaron `0001_init.sql` ni `seed.sql`, ni se probaron en vivo la restricción de exclusión, la RLS, el rate-limit ni el login. Queda pendiente aplicar las migraciones y hacer una pasada E2E en el proyecto de Supabase.
+1. **E2E pendiente sobre la base real**: el proyecto ya está vinculado a Supabase (`supabase/`) y la base está migrada y con seed (verifiqué que `services` y `veterinarians` responden correctamente). Aún no se probaron en vivo: la restricción de exclusión, la RLS, el rate-limit, el login y el flujo completo de agendar/consultar.
 2. **Bootstrap de staff** manual (ver arriba).
 3. **`npm audit`**: 5 avisos *high* proceden de una sola cadena dev-only (`braces` → `micromatch` → `fast-glob` → `@next/eslint-plugin-next` → `eslint-config-next`), sin versión corregida publicada y sin impacto en runtime (DoS de tooling de lint local). Aceptado; el "fix" sugerido degrada a `eslint-config-next@14` (EOL) y no elimina el aviso.
 4. **Soft-delete de servicios/veterinarios**: se desactivan (`is_active=false`) para conservar historial; el `unique` sobre `name` impide recrear el mismo nombre — renombrar o reutilizar el registro existente.

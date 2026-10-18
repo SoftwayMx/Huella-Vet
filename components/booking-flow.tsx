@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { formatInTimeZone } from "date-fns-tz";
 import { TIMEZONE } from "@/lib/constants";
+import Link from "next/link";
 import { Slot, SlotPicker } from "./slot-picker";
 import { Alert, Button, Field, Spinner, Success, TextArea, TextInput } from "./ui";
+import { BackLink } from "./back-link";
 
 interface Service {
   id: string;
@@ -115,6 +117,9 @@ export function BookingFlow() {
   if (result) {
     return (
       <div className="space-y-4 text-center">
+        <div className="text-left">
+          <BackLink href="/" label="Volver al inicio" />
+        </div>
         <h2 className="text-2xl font-bold text-primary">¡Cita agendada!</h2>
         <p className="text-slate-600">
           {result.service} el {formatInTimeZone(result.startAt, TIMEZONE, "EEEE dd/MM/yyyy HH:mm")}.
@@ -124,15 +129,20 @@ export function BookingFlow() {
           <p className="mt-1 text-3xl font-black tracking-widest text-primary">{result.code}</p>
           <p className="mt-2 text-xs">Lo necesitarás junto con tu teléfono para consultar o modificar tu cita.</p>
         </Success>
-        <a href="/consultar" className="inline-block text-sm font-semibold text-primary underline">
+        <Link
+          href="/consultar"
+          className="inline-block rounded text-sm font-semibold text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
           Consultar mi cita
-        </a>
+        </Link>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
+      {step === 0 ? <BackLink href="/" /> : <BackLink onClick={back} />}
+
       <nav aria-label="Progreso">
         <ol className="flex flex-wrap gap-1 text-xs font-medium">
           {STEPS.map((label, i) => (
@@ -260,8 +270,16 @@ export function BookingFlow() {
                 className="mt-0.5 h-4 w-4 accent-primary"
               />
               <span>
-                Acepto el <span className="font-semibold">aviso de privacidad</span> y consiento el tratamiento de
-                mis datos para agendar esta cita.
+                Acepto el{" "}
+                <a
+                  href="/aviso-de-privacidad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded font-semibold text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  aviso de privacidad
+                </a>{" "}
+                y consiento el tratamiento de mis datos para agendar esta cita.
               </span>
             </label>
             {errors.consent && (
@@ -275,24 +293,16 @@ export function BookingFlow() {
 
       {submitError && <Alert>{submitError}</Alert>}
 
-      {step < 3 && (
-        <div className="flex justify-between">
-          <Button variant="ghost" onClick={back} disabled={step === 0}>
-            Atrás
+      {step === 2 && (
+        <div className="flex justify-end">
+          <Button onClick={next} disabled={!slot}>
+            Continuar
           </Button>
-          {step === 2 && (
-            <Button onClick={next} disabled={!slot}>
-              Continuar
-            </Button>
-          )}
         </div>
       )}
 
       {step === 3 && (
-        <div className="flex justify-between">
-          <Button variant="ghost" onClick={back}>
-            Atrás
-          </Button>
+        <div className="flex justify-end">
           <Button onClick={submit} disabled={submitting}>
             {submitting ? "Agendando…" : "Confirmar cita"}
           </Button>
