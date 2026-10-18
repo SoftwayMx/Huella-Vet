@@ -44,9 +44,17 @@ export default function ContactoPage() {
           <div>
             <h2 className="font-semibold text-ink">Dirección</h2>
             <p className="mt-1 text-slate-700">{SITE.address}</p>
-            <div className="mt-3 flex min-h-[120px] items-center justify-center rounded-lg border border-dashed border-slate-300 bg-surface text-center text-xs text-slate-500">
-              Mapa de la ubicación (pendiente de agregar)
+            <div className="mt-3 overflow-hidden rounded-lg border border-slate-200">
+              {/* eslint-disable-next-line @next/next/no-img-element -- SVG ilustrativo temporal, no pasa por next/image */}
+              <img
+                src="/images/contact/mapa-ejemplo.svg"
+                alt="Mapa ilustrativo de la ubicación de Huella Vet (ejemplo)"
+                width={1200}
+                height={450}
+                className="aspect-[1200/450] w-full object-cover"
+              />
             </div>
+            <p className="mt-1 text-xs text-slate-500">Mapa ilustrativo de ejemplo; la ubicación es ficticia.</p>
           </div>
           <div>
             <h2 className="font-semibold text-ink">Horarios de atención</h2>

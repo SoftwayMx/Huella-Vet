@@ -130,16 +130,13 @@ La portada (`/`) incluye cabecera con logo y navegación, hero, sección de serv
 
 ### Imágenes
 
-No existe carpeta `public/`. Se crearon ilustraciones SVG propias (logo de huella, iconos por servicio, ilustraciones de mascotas) y marcadores de posición. Las fotos reales se colocan en `public/images/` con estos nombres y aparecen sin tocar código:
+Las imágenes del sitio son **de ejemplo, generadas con IA** (las personas y mascotas no son reales). Viven en `public/images/`:
 
-| Archivo | Contenido | Tamaño recomendado |
-|---|---|---|
-| `clinica-recepcion.jpg` | Recepción | 1200×900 |
-| `clinica-consultorio.jpg` | Consultorio | 1200×900 |
-| `mascota-perro.jpg` | Paciente perro | 1200×900 |
-| `mascota-gato.jpg` | Paciente gato | 1200×900 |
-| `mascota-conejo.jpg` | Paciente conejo | 1200×900 |
-| `equipo-veterinario.jpg` | Equipo | 1200×900 |
+- `gallery/` — seis fotos (~420×314) para la galería "Nuestro espacio".
+- `team/` — tres retratos cuadrados (592×592) de los veterinarios.
+- `contact/mapa-ejemplo.svg` — mapa ilustrado temporal (1200×450).
+
+Para reemplazarlas por fotos reales basta con sustituir los archivos conservando el mismo nombre, o actualizar el mapa de fotos del equipo en `lib/site-info.ts` (`SITE.vetPhotos`). La carpeta original `huella-vet-imagenes/` no se sube al repositorio (está en `.gitignore`).
 
 ## Nota legal
 

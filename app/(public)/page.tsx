@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { createServiceClient } from "@/lib/supabase/server";
-import { IllustrationVariant, PawLogo, ServiceIcon } from "@/components/icons";
-import { GalleryImage } from "@/components/gallery-image";
+import { PawLogo, ServiceIcon } from "@/components/icons";
 import { SITE } from "@/lib/site-info";
 
 export const dynamic = "force-dynamic";
@@ -44,13 +44,13 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-const GALLERY: { src: string; alt: string; caption: string; variant: IllustrationVariant }[] = [
-  { src: "/images/clinica-recepcion.jpg", alt: "Recepción de la clínica", caption: "Recepción", variant: "clinic" },
-  { src: "/images/clinica-consultorio.jpg", alt: "Consultorio de atención", caption: "Consultorio", variant: "clinic" },
-  { src: "/images/mascota-perro.jpg", alt: "Paciente perro", caption: "Nuestros pacientes", variant: "dog" },
-  { src: "/images/mascota-gato.jpg", alt: "Paciente gato", caption: "Cuidamos a todos", variant: "cat" },
-  { src: "/images/mascota-conejo.jpg", alt: "Paciente conejo", caption: "También exóticos", variant: "rabbit" },
-  { src: "/images/equipo-veterinario.jpg", alt: "Equipo veterinario", caption: "Nuestro equipo", variant: "team" },
+const GALLERY: { src: string; alt: string; caption: string }[] = [
+  { src: "/images/gallery/recepcion.jpg", alt: "Recepción de la clínica Huella Vet", caption: "Recepción" },
+  { src: "/images/gallery/consultorio.jpg", alt: "Consultorio veterinario de Huella Vet", caption: "Consultorio" },
+  { src: "/images/gallery/pacientes.jpg", alt: "Mascota paciente durante una consulta", caption: "Nuestros pacientes" },
+  { src: "/images/gallery/cuidamos-a-todos.jpg", alt: "Veterinario atendiendo a una mascota", caption: "Cuidamos a todos" },
+  { src: "/images/gallery/exoticos.jpg", alt: "Mascota exótica en consulta", caption: "También exóticos" },
+  { src: "/images/gallery/equipo.jpg", alt: "Equipo de veterinarios de Huella Vet", caption: "Nuestro equipo" },
 ];
 
 const STEPS = [
@@ -115,15 +115,30 @@ export default async function Home() {
           <p className="mt-4 text-sm text-slate-600">Próximamente.</p>
         ) : (
           <ul className="mt-6 grid gap-4 sm:grid-cols-3">
-            {veterinarians.map((v) => (
-              <li key={v.id} className="rounded-xl border border-slate-200 bg-white p-5 text-center">
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-lg font-bold text-white">
-                  {initials(v.name)}
-                </span>
-                <p className="mt-3 font-semibold text-ink">{v.name}</p>
-                <p className="text-sm text-slate-500">Médico Veterinario</p>
-              </li>
-            ))}
+            {veterinarians.map((v) => {
+              const photo = SITE.vetPhotos[v.name];
+              return (
+                <li key={v.id} className="rounded-xl border border-slate-200 bg-white p-5 text-center">
+                  {photo ? (
+                    <span className="mx-auto block h-14 w-14 overflow-hidden rounded-full bg-primary">
+                      <Image
+                        src={photo}
+                        alt={`Foto de ${v.name}`}
+                        width={56}
+                        height={56}
+                        className="h-full w-full object-cover"
+                      />
+                    </span>
+                  ) : (
+                    <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-lg font-bold text-white">
+                      {initials(v.name)}
+                    </span>
+                  )}
+                  <p className="mt-3 font-semibold text-ink">{v.name}</p>
+                  <p className="text-sm text-slate-500">Médico Veterinario</p>
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>
@@ -136,7 +151,15 @@ export default async function Home() {
           {GALLERY.map((g) => (
             <li key={g.src}>
               <figure className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-                <GalleryImage src={g.src} alt={g.alt} variant={g.variant} />
+                <Image
+                  src={g.src}
+                  alt={g.alt}
+                  width={420}
+                  height={314}
+                  sizes="(min-width: 640px) 33vw, 50vw"
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover"
+                />
                 <figcaption className="px-3 py-2 text-xs text-slate-600">{g.caption}</figcaption>
               </figure>
             </li>

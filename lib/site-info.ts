@@ -12,6 +12,12 @@ export const SITE = {
   email: "contacto@huellavet.example",
   address:
     "Av. de los Veterinarios 123, Col. Centro, 06000 Ciudad de México (dirección de ejemplo)",
+  // Retratos del equipo (asociación por nombre; sin foto se usan iniciales).
+  vetPhotos: {
+    "Dr. Luis Pérez": "/images/team/dr-luis-perez.jpg",
+    "Dra. Ana García": "/images/team/dra-ana-garcia.jpg",
+    "Dra. María López": "/images/team/dra-maria-lopez.jpg",
+  } as Record<string, string>,
   hours: [
     { days: "Lunes a viernes", time: "9:00 – 19:00" },
     { days: "Sábado", time: "9:00 – 14:00" },
