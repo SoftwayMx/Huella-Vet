@@ -68,22 +68,37 @@ export default async function Home() {
   const { services, veterinarians } = await getCatalog();
 
   return (
-    <div className="mx-auto max-w-5xl px-4">
-      {/* Principal */}
-      <section className="py-14 text-center sm:py-20">
-        <div className="mx-auto max-w-2xl">
-          <PawLogo className="mx-auto h-14 w-14 text-primary" />
-          <h1 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">Cuidamos a tu mejor amigo</h1>
-          <p className="mt-4 text-lg text-slate-700">
-            Agenda, consulta y administra citas veterinarias en línea, sin llamar por teléfono.
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/agendar" className={ctaPrimary}>Agendar cita</Link>
-            <Link href="/consultar" className={ctaSecondary}>Consultar mi cita</Link>
+    <>
+      {/* Principal (imagen de fondo a ancho completo) */}
+      <section className="relative overflow-hidden">
+        <Image
+          src="/images/hero/portada.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-white/40"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto max-w-5xl px-4 py-16 text-center sm:py-24 lg:text-left">
+          <div className="lg:max-w-xl">
+            <PawLogo className="mx-auto h-14 w-14 text-primary lg:mx-0" />
+            <h1 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">Cuidamos a tu mejor amigo</h1>
+            <p className="mt-4 text-lg text-slate-700">
+              Agenda, consulta y administra citas veterinarias en línea, sin llamar por teléfono.
+            </p>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+              <Link href="/agendar" className={ctaPrimary}>Agendar cita</Link>
+              <Link href="/consultar" className={ctaSecondary}>Consultar mi cita</Link>
+            </div>
           </div>
         </div>
       </section>
 
+      <div className="mx-auto max-w-5xl px-4">
       {/* Servicios */}
       <section id="servicios" className="py-10">
         <h2 className="text-2xl font-bold text-ink">Servicios</h2>
@@ -213,6 +228,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

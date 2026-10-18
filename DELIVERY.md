@@ -133,6 +133,7 @@ La portada (`/`) incluye cabecera con logo y navegación, hero, sección de serv
 Las imágenes del sitio son **de ejemplo, generadas con IA** (las personas y mascotas no son reales). Viven en `public/images/`:
 
 - `gallery/` — seis fotos (~420×314) para la galería "Nuestro espacio".
+- `hero/portada.jpg` — imagen de fondo de la sección principal (1376×768).
 - `team/` — tres retratos cuadrados (592×592) de los veterinarios.
 - `contact/mapa-ejemplo.svg` — mapa ilustrado temporal (1200×450).
 
