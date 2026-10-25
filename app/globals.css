@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* Paleta de marca: máximo cinco colores definidos como variables. */
+@theme {
+  --color-primary: #0f766e; /* teal-700 */
+  --color-primary-dark: #115e59; /* teal-800 */
+  --color-accent: #f59e0b; /* amber-500 */
+  --color-surface: #f8fafc; /* slate-50 */
+  --color-ink: #0f172a; /* slate-900 */
+}

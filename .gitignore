@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+.env
+.env*.local
+*.log
+.DS_Store
+supabase/.temp/
+tsconfig.tsbuildinfo
+huella-vet-imagenes/
